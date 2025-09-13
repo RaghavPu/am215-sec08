@@ -1,0 +1,10 @@
+Line 1: This is the first line
+Line 2: Here's some sample data
+Line 3: More content for demonstration
+Line 4: We can use this for head/tail examples
+Line 5: This file has multiple lines
+Line 6: Perfect for learning file commands
+Line 7: Each line is numbered for clarity
+Line 8: This helps with understanding output
+Line 9: Almost at the end now
+Line 10: This is the final line
