@@ -1,0 +1,16 @@
+# Python virtual environments created by demo scripts
+demo_env/
+venv_demo/
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Output directories and files from analysis scripts
+results_*
+walk_analysis.png
+*.log
+
+# Temporary files from scripts
+current.txt
