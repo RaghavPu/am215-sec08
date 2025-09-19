@@ -35,6 +35,15 @@ A **channel** is a location (a URL) where Conda looks for packages. Think of it 
 - **Efficient dependency solver:** It uses a much faster library (`libsolv`) to resolve dependency graphs, which is often the slowest part of a `conda` installation.
 - **Standalone binary:** It's a single, self-contained executable, which makes it faster to start up and easier to install.
 
+#### If `pip` can install `numpy` with its C libraries, why do I need `conda`?
+When you `pip install numpy`, you typically download a pre-compiled "wheel" file. The creators of that wheel have already bundled a specific version of a numerical library (like OpenBLAS) inside it. So, `pip` isn't managing the C library; it's just installing a package that already has one baked in.
+
+The problem, as highlighted in the "Dependency Iceberg" slide, is that you have no control over *which* underlying library you get. A colleague on a different OS might get a wheel with a different library (e.g., MKL instead of OpenBLAS). These different libraries can produce slightly different numerical results.
+
+`conda` gives you explicit control over that entire software stack. As shown in the `environment.yml` example, you can pin not just `numpy`, but also the specific BLAS library, like `mkl=2023.1`. This ensures everyone on the team is using the exact same low-level libraries, which is critical for achieving bit-for-bit numerical reproducibility.
+
+In short: `pip`/`uv` give you a *working* environment by using pre-bundled dependencies. `conda` gives you a *reproducible* scientific environment by allowing you to explicitly manage those dependencies.
+
 #### What are MKL and OpenBLAS, and why do they give different results?
 MKL (Math Kernel Library) and OpenBLAS are two different libraries that provide highly optimized implementations of Basic Linear Algebra Subprograms (BLAS) and LAPACK routines. These are the low-level workhorses for matrix multiplication, solving linear systems, etc., that libraries like NumPy and SciPy call under the hood.
 - **MKL** is developed by Intel and is highly optimized for Intel CPUs.
@@ -65,6 +74,34 @@ In short: **Namespaces make a container *think* it's alone; cgroups prevent it f
 Each instruction in a `Dockerfile` (like `RUN`, `COPY`, `ADD`) creates a read-only **layer** in the image. When you build an image, Docker checks if it already has a layer for a given instruction. If the instruction and the files it depends on haven't changed, Docker reuses the existing layer from its cache instead of re-running the instruction.
 This is why the order in your `Dockerfile` is so important. By copying `requirements.txt` and running `pip install` *before* copying the rest of your source code, you ensure that the slow package installation step is only re-run when `requirements.txt` actually changes, not every time you edit a source file.
 
+#### How do I share my Docker image with others? Is it free?
+You share Docker images by pushing them to a **container registry**, which is a storage system for container images. Your collaborators can then pull the image from the registry. The most common workflow is:
+
+1.  **Tag your image:** Before you can push an image, you need to tag it with the registry's address and your username:
+    ```bash
+    # Format: <registry>/<username>/<image_name>:<tag>
+    docker tag my-app-image your-username/my-app-image:v1.0
+    ```
+    For Docker Hub, you can omit the registry name.
+
+2.  **Log in to the registry:**
+    ```bash
+    docker login
+    # For GHCR, it would be: docker login ghcr.io
+    ```
+
+3.  **Push the image:**
+    ```bash
+    docker push your-username/my-app-image:v1.0
+    ```
+
+**Registry Options & Costs:**
+- **Docker Hub:** The default registry. It's very easy to use and offers unlimited free public repositories. There are also a limited number of free private repositories, making it a great starting point.
+- **GitHub Container Registry (ghcr.io):** Excellent if your code is already on GitHub. It's free for public images associated with public repositories. Private images use your account's storage quota for GitHub Packages.
+- **Cloud Registries (Amazon ECR, Google Artifact Registry, Azure ACR):** These are integrated with cloud platforms and are ideal for large-scale deployments, but typically involve storage and data transfer costs.
+
+For most academic and open-source projects, using a free public repository on **Docker Hub** or **GitHub Container Registry** is the standard and easiest way to share your work.
+
 ---
 ### Advanced Topics (`Nix`, `Spack`)
 
@@ -92,6 +129,41 @@ Spack and Conda solve similar problems, but are designed for different use cases
 
 #### Why is `np.random.seed()` bad? I see it everywhere.
 `np.random.seed()` controls NumPy's old, legacy random number generation system, which relies on a single **global state**. This means that any piece of code anywhere in your program (including in third-party libraries) that calls a function like `np.random.rand()` will advance the same hidden random number stream. This makes your results dependent on the exact order of execution, which is very fragile. A minor library update could change the number of random draws it makes internally, silently breaking your reproducibility. The modern approach (`np.random.default_rng()`) creates an isolated generator object that you pass explicitly to functions, avoiding this global state problem entirely.
+
+#### How do I get reproducible results with parallel code (multithreading)?
+Parallel code introduces non-determinism, primarily from two sources: random number generation and parallel reductions (like sums).
+
+**1. Random Number Generation:**
+You cannot have multiple threads/processes share a single random number generator (RNG), as the order in which they access it is not guaranteed. You also cannot give every worker the *same* seed, because then they would all produce the exact same sequence of random numbers.
+
+The standard practice is to give each worker its own independent, seeded RNG. The modern NumPy library provides `np.random.SeedSequence` for this exact purpose. You create a master `SeedSequence` and then `spawn` independent child sequences from it for each worker.
+
+```python
+import numpy as np
+from concurrent.futures import ThreadPoolExecutor
+
+def worker_function(seed_sequence):
+    # Each worker creates its own independent RNG from its assigned sequence
+    rng = np.random.default_rng(seed_sequence)
+    # This worker's random numbers are independent of all others
+    return rng.random()
+
+# 1. Create a master SeedSequence from a single, high-entropy seed
+ss = np.random.SeedSequence(12345)
+
+# 2. "Spawn" independent child sequences for each of your N workers
+child_sequences = ss.spawn(4) # Creates 4 independent sequences
+
+# 3. Pass one child sequence to each worker
+with ThreadPoolExecutor() as executor:
+    results = list(executor.map(worker_function, child_sequences))
+
+# This list of results will be identical on every run.
+print(results)
+```
+
+**2. Parallel Reductions:**
+Floating-point math is not associative (i.e., `(a + b) + c` is not always bit-for-bit identical to `a + (b + c)`). In a parallel sum, the order of additions is non-deterministic, which can lead to tiny variations in the final result. Achieving bit-for-bit reproducible parallel sums is difficult and often requires forcing a deterministic reduction order, which may reduce performance. For many libraries, setting an environment variable like `OMP_NUM_THREADS=1` is a "big hammer" approach that forces serial execution, ensuring reproducibility at the cost of parallelism.
 
 #### What is floating-point error and why can't I just use `==` to compare floats?
 Computers cannot represent most decimal numbers exactly in binary. They use an approximation called a floating-point number. This leads to tiny rounding errors. For example, `0.1 + 0.2` is not exactly `0.3` in binary; it's `0.30000000000000004`.
