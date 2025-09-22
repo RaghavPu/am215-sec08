@@ -1,0 +1,45 @@
+# A development environment for running Lec03 examples on non-FHS systems like NixOS.
+# This container provides a standard Debian environment with Python, Conda, uv, Nix, and the Docker CLI.
+FROM python:3.12-slim-bookworm
+
+# Avoid interactive prompts during installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies: Python, Git, and tools for Docker/Nix/uv setup
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    ca-certificates \
+    curl \
+    git \
+    gnupg \
+    neovim \
+    procps \
+    sudo \
+    xz-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Docker CLI (for Docker-out-of-Docker)
+RUN install -m 0755 -d /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN chmod a+r /etc/apt/keyrings/docker.gpg
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get update && apt-get install -y docker-ce-cli
+
+# Install micromamba using the official installer script
+RUN curl -Ls micro.mamba.pm/install.sh | SHELL=/bin/bash BIN_DIR=/usr/local/bin INIT_SHELL=false sh
+
+# Install uv (Python package manager from Astral)
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV UV_LINK_MODE=copy
+
+# Install Nix package manager using the Determinate Systems installer
+RUN curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install linux --no-confirm --init none
+
+# Set up working directory
+WORKDIR /code
+
+# Default command to start an interactive shell
+CMD ["/bin/bash"]
