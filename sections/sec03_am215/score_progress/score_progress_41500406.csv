@@ -1,0 +1,126 @@
+PERIOD,PCTIMESTRING,SCORE,HOMEDESCRIPTION,VISITORDESCRIPTION,CUMULATIVE_TIME
+1,11:10,0 - 1,James Free Throw 2 of 2 (1 PTS),,50
+1,10:30,0 - 2,Thompson Free Throw 1 of 2 (1 PTS),,90
+1,9:40,0 - 4,Irving 13' Pullup Jump Shot (2 PTS),,140
+1,8:51,0 - 6,James Running Dunk (3 PTS) (Jefferson 1 AST),,189
+1,7:43,0 - 8,James 3' Turnaround Bank Shot (5 PTS),,257
+1,6:54,2 - 8,,Green 2' Driving Layup (2 PTS),306
+1,6:41,2 - 11,Irving 28' 3PT Jump Shot (5 PTS),,319
+1,6:19,2 - 13,James Cutting Dunk Shot (7 PTS) (Irving 1 AST),,341
+1,6:04,5 - 13,,Curry 26' 3PT Jump Shot (3 PTS) (Green 1 AST),356
+1,5:21,7 - 13,,Thompson 8' Turnaround Jump Shot (2 PTS),399
+1,4:58,7 - 16,Smith 26' 3PT Jump Shot (3 PTS) (James 1 AST),,422
+1,4:40,7 - 18,Jefferson 22' Jump Shot (2 PTS) (Irving 2 AST),,440
+1,4:05,7 - 20,Irving 18' Jump Shot (7 PTS) (Thompson 1 AST),,475
+1,3:53,9 - 20,,Ezeli 1' Cutting Layup Shot (2 PTS) (Livingston 1 AST),487
+1,3:40,9 - 21,Thompson Free Throw 1 of 2 (2 PTS),,500
+1,3:40,9 - 22,Thompson Free Throw 2 of 2 (3 PTS),,500
+1,3:17,9 - 24,Thompson Cutting Dunk Shot (5 PTS) (James 2 AST),,523
+1,2:44,9 - 26,James 1' Driving Layup (9 PTS),,556
+1,1:48,9 - 28,Williams 12' Driving Floating Jump Shot (2 PTS) (James 3 AST),,612
+1,1:21,9 - 29,Jefferson Free Throw 2 of 2 (3 PTS),,639
+1,0:54,9 - 31,Thompson Cutting Dunk Shot (7 PTS) (James 4 AST),,666
+1,0:03,11 - 31,,Iguodala 20' Jump Shot (2 PTS) (Thompson 1 AST),717
+1,0:00,11 - 31,,,720
+2,12:00,11 - 31,,,720
+2,11:42,12 - 31,,Curry Free Throw 1 of 2 (4 PTS),738
+2,11:42,13 - 31,,Curry Free Throw 2 of 2 (5 PTS),738
+2,11:27,13 - 34,Irving 27' 3PT Jump Shot (10 PTS) (Love 1 AST),,753
+2,11:16,16 - 34,,Curry 27' 3PT Jump Shot (8 PTS) (Green 2 AST),764
+2,10:58,16 - 35,Love Free Throw 2 of 2 (1 PTS),,782
+2,10:43,17 - 35,,Green Free Throw 1 of 2 (3 PTS),797
+2,10:43,18 - 35,,Green Free Throw 2 of 2 (4 PTS),797
+2,10:24,18 - 37,Irving 17' Pullup Jump Shot (12 PTS),,816
+2,9:59,19 - 37,,Barbosa Free Throw 1 of 3 (1 PTS),841
+2,9:59,20 - 37,,Barbosa Free Throw 2 of 3 (2 PTS),841
+2,9:59,21 - 37,,Barbosa Free Throw 3 of 3 (3 PTS),841
+2,9:50,21 - 38,Irving Free Throw 1 of 2 (13 PTS),,850
+2,9:50,21 - 39,Irving Free Throw 2 of 2 (14 PTS),,850
+2,9:39,24 - 39,,Curry 25' 3PT Pullup Jump Shot (11 PTS),861
+2,8:43,24 - 41,Thompson Alley Oop Dunk (9 PTS) (Smith 1 AST),,917
+2,8:23,26 - 41,,Barbosa 5' Jump Shot (5 PTS),937
+2,7:39,26 - 43,Irving Running Layup (16 PTS) (Smith 2 AST),,981
+2,7:19,29 - 43,,Iguodala 24' 3PT Jump Shot (5 PTS) (Barbosa 1 AST),1001
+2,6:51,29 - 46,James 27' 3PT Jump Shot (12 PTS),,1029
+2,6:37,30 - 46,,Curry Free Throw 1 of 2 (12 PTS),1043
+2,6:37,31 - 46,,Curry Free Throw 2 of 2 (13 PTS),1043
+2,5:42,33 - 46,,Thompson 2' Driving Layup (4 PTS) (Iguodala 1 AST),1098
+2,5:12,36 - 46,,Curry 32' 3PT Jump Shot (16 PTS),1128
+2,4:40,38 - 46,,Green 1' Layup (6 PTS) (Curry 1 AST),1160
+2,3:53,38 - 47,Irving Free Throw 1 of 2 (17 PTS),,1207
+2,3:53,38 - 48,Irving Free Throw 2 of 2 (18 PTS),,1207
+2,3:18,38 - 49,Irving Free Throw 1 of 2 (19 PTS),,1242
+2,3:18,38 - 50,Irving Free Throw 2 of 2 (20 PTS),,1242
+2,2:53,38 - 52,Thompson Alley Oop Dunk (11 PTS) (James 5 AST),,1267
+2,2:33,38 - 54,James 1' Driving Layup (14 PTS),,1287
+2,2:18,39 - 54,,Thompson Free Throw 1 of 2 (5 PTS),1302
+2,1:55,40 - 54,,Curry Free Throw 1 of 2 (17 PTS),1325
+2,1:55,41 - 54,,Curry Free Throw 2 of 2 (18 PTS),1325
+2,1:25,43 - 54,,Thompson 11' Pullup Jump Shot (7 PTS),1355
+2,1:01,43 - 56,D. Jones 5' Jump Shot (2 PTS) (James 6 AST),,1379
+2,1:01,43 - 57,D. Jones Free Throw 1 of 1 (3 PTS),,1379
+2,0:50,43 - 58,D. Jones Free Throw 1 of 2 (4 PTS),,1390
+2,0:50,43 - 59,D. Jones Free Throw 2 of 2 (5 PTS),,1390
+2,0:00,43 - 59,,,1440
+3,12:00,43 - 59,,,1440
+3,10:55,43 - 61,James Cutting Dunk Shot (16 PTS) (Thompson 2 AST),,1505
+3,10:36,43 - 62,Love Free Throw 1 of 2 (2 PTS),,1524
+3,10:00,43 - 65,Smith 28' 3PT Jump Shot (6 PTS) (James 7 AST),,1560
+3,9:23,46 - 65,,Curry 27' 3PT Jump Shot (21 PTS) (Green 3 AST),1597
+3,9:02,46 - 66,Love Free Throw 1 of 2 (3 PTS),,1618
+3,9:02,46 - 67,Love Free Throw 2 of 2 (4 PTS),,1618
+3,8:04,46 - 70,Love 3PT Jump Shot (7 PTS) (Thompson 3 AST),,1676
+3,7:48,49 - 70,,Thompson 3PT Jump Shot (10 PTS) (Green 4 AST),1692
+3,6:53,51 - 70,,Green Running Layup (8 PTS),1747
+3,6:37,52 - 70,,Curry Free Throw 2 of 2 (22 PTS),1763
+3,6:04,54 - 70,,Curry 1' Driving Reverse Layup (24 PTS) (Ezeli 1 AST),1796
+3,6:04,55 - 70,,Curry Free Throw 1 of 1 (25 PTS),1796
+3,5:38,55 - 72,Irving 15' Jump Shot (22 PTS),,1822
+3,5:19,57 - 72,,Ezeli Tip Dunk Shot (4 PTS),1841
+3,5:00,57 - 74,James 1' Driving Layup (18 PTS) (Love 2 AST),,1860
+3,4:40,57 - 76,James Alley Oop Dunk (20 PTS) (Smith 3 AST),,1880
+3,4:23,59 - 76,,Thompson 1' Cutting Layup Shot (12 PTS) (Green 5 AST),1897
+3,3:59,59 - 77,James Free Throw 1 of 2 (21 PTS),,1921
+3,3:42,61 - 77,,Thompson 15' Fadeaway Jumper (14 PTS),1938
+3,3:20,61 - 80,James 25' 3PT Jump Shot (24 PTS),,1960
+3,2:14,63 - 80,,Livingston 12' Pullup Jump Shot (2 PTS) (Green 6 AST),2026
+3,1:31,66 - 80,,Thompson 26' 3PT Jump Shot (17 PTS) (Varejao 1 AST),2069
+3,0:47,69 - 80,,Thompson 24' 3PT Jump Shot (20 PTS),2113
+3,0:06,71 - 80,,Thompson 1' Driving Layup (22 PTS),2154
+3,0:00,71 - 80,,,2160
+4,12:00,71 - 80,,,2160
+4,11:43,71 - 81,James Free Throw 1 of 2 (25 PTS),,2177
+4,11:43,71 - 82,James Free Throw 2 of 2 (26 PTS),,2177
+4,10:33,71 - 84,James 9' Jump Shot (28 PTS),,2247
+4,10:03,73 - 84,,Barbosa 1' Running Layup (7 PTS) (Livingston 2 AST),2277
+4,9:04,76 - 84,,Curry 25' 3PT Jump Shot (28 PTS),2336
+4,8:22,76 - 86,James 2' Layup (30 PTS),,2378
+4,8:06,79 - 86,,Barbosa 3PT Jump Shot (10 PTS) (Iguodala 2 AST),2394
+4,7:30,79 - 88,James 20' Jump Shot (32 PTS),,2430
+4,7:00,79 - 90,James 1' Layup (34 PTS) (Irving 3 AST),,2460
+4,6:48,80 - 90,,Thompson Free Throw 2 of 3 (23 PTS),2472
+4,6:48,81 - 90,,Thompson Free Throw 3 of 3 (24 PTS),2472
+4,6:36,81 - 93,Smith 26' 3PT Jump Shot (9 PTS) (James 8 AST),,2484
+4,6:22,84 - 93,,Barbosa 25' 3PT Jump Shot (13 PTS) (Iguodala 3 AST),2498
+4,5:53,84 - 95,James 9' Turnaround Jump Shot (36 PTS),,2527
+4,5:17,84 - 97,Thompson Alley Oop Dunk (13 PTS) (James 9 AST),,2563
+4,5:07,86 - 97,,Curry 1' Driving Layup (30 PTS),2573
+4,4:43,86 - 99,Thompson Alley Oop Layup (15 PTS) (James 10 AST),,2597
+4,4:28,87 - 99,,Thompson Free Throw 1 of 2 (25 PTS),2612
+4,4:22,87 - 100,Irving Free Throw Technical (23 PTS),,2618
+4,3:58,87 - 103,Smith 3PT Jump Shot (12 PTS) (James 11 AST),,2642
+4,3:39,87 - 104,James Free Throw 1 of 2 (37 PTS),,2661
+4,3:39,87 - 105,James Free Throw 2 of 2 (38 PTS),,2661
+4,3:23,88 - 105,,Barbosa Free Throw 2 of 2 (14 PTS),2677
+4,2:59,88 - 108,James 25' 3PT Jump Shot (41 PTS),,2701
+4,2:24,88 - 110,Smith 1' Running Dunk (14 PTS),,2736
+4,2:19,89 - 110,,Livingston Free Throw 1 of 2 (3 PTS),2741
+4,1:49,89 - 112,Williams 18' Jump Shot (4 PTS) (Dellavedova 1 AST),,2771
+4,1:38,91 - 112,,McAdoo Driving Dunk (2 PTS) (Livingston 3 AST),2782
+4,1:35,91 - 113,Dellavedova Free Throw 2 of 2 (1 PTS),,2785
+4,1:25,94 - 113,,Clark 28' 3PT Jump Shot (3 PTS),2795
+4,1:01,97 - 113,,Speights 24' 3PT Jump Shot (3 PTS) (Barbosa 2 AST),2819
+4,0:32,100 - 113,,Speights 25' 3PT Jump Shot (6 PTS) (Clark 1 AST),2848
+4,0:13,100 - 115,Dellavedova 14' Pullup Jump Shot (3 PTS),,2867
+4,0:03,101 - 115,,Rush Free Throw 2 of 2 (1 PTS),2877
+4,0:00,101 - 115,,,2880

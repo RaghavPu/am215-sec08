@@ -1,0 +1,56 @@
+# --- Python cache & compiled files ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.py.class
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# --- IDE / Editor files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+*.DS_Store
+
+# --- Logs & debug ---
+*.log
+*.out
+*.err
+
+# --- Jupyter Notebook checkpoints ---
+.ipynb_checkpoints/
+
+# --- Distribution / Packaging ---
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# --- Testing ---
+.coverage
+*.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+
+# --- System files ---
+Thumbs.db
+.DS_Store
+ehthumbs.db
+desktop.ini
+
+# --- Custom unused patterns ---
+*.old
+*.orig
+*.rej
+*.sav
