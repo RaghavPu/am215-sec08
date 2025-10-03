@@ -1,0 +1,5 @@
+numpy
+matplotlib
+scipy
+# This line installs our local card_games package from the previous step
+../04_full_package

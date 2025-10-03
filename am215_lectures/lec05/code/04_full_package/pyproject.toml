@@ -1,0 +1,41 @@
+# Build system configuration
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm[toml]>=6.2", "cython"]
+build-backend = "setuptools.build_meta"
+
+# Core project metadata
+[project]
+name = "card_games_am215"
+dynamic = ["version"]
+authors = [{ name = "AM215 Team", email = "am215@example.com" }]
+description = "A simple library for card game simulations."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
+dependencies = ["numpy"]
+
+# Optional dependencies (extras)
+[project.optional-dependencies]
+plotting = ["matplotlib>=3.5.0"]
+test = ["pytest"]
+dev = ["build", "twine"]
+
+# Command-line scripts
+[project.scripts]
+run-blackjack-sim = "card_games.simulation:main"
+
+# Backend-specific configuration
+[tool.setuptools_scm]
+# This enables setuptools-scm
+
+[tool.setuptools]
+ext-modules = [
+    {name = "card_games.fast_rules", sources = ["src/card_games/fast_rules.pyx"]},
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"card_games" = ["*.json"]
