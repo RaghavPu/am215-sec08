@@ -18,7 +18,7 @@ def typecheck(session):
     """Run the type checker."""
     # Install the package itself and its dependencies, plus the type checker.
     session.install(".", "ty")
-    session.run("ty", ".")
+    session.run("ty", "check", ".")
 
 
 @nox.session(python=PYTHON_VERSIONS)

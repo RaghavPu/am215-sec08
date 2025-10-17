@@ -45,13 +45,18 @@ Type hints are only used by **static analysis tools**—separate programs like `
 
 There are some advanced libraries (like `pydantic` or `beartype`) that *can* check types at runtime, but this is an explicit, opt-in behavior that you have to specifically add to your code. Standard type hints have zero runtime cost.
 
-#### What does `strict = true` in the type checker config really do?
-Setting `strict = true` in your `ty` or `mypy` configuration enables the most rigorous level of checking. It's a shorthand for turning on a whole family of strictness flags, the most important of which are:
--   **`disallow_untyped_defs`**: Flags any function that does not have full type annotations.
--   **`disallow_any_generics`**: Prohibits using generic types like `list` or `dict` without specifying their contents (e.g., you must use `list[int]`, not just `list`).
--   **`warn_return_any`**: Flags any function that is inferred to return the `Any` type, which effectively disables type checking.
+#### How do I configure `ty` for strict checking?
+The `ty` type checker does not have a single `strict = true` flag like `mypy`. Instead, it is designed to be strict by default, and you can increase its strictness further by configuring how it handles warnings.
 
-For a new project, starting with `strict = true` is the best practice. For an existing, untyped codebase, adopting strict mode can be a gradual process.
+A common way to enforce the highest level of strictness is to treat all warnings as errors. You can configure this in your `pyproject.toml` under the `[tool.ty.terminal]` section:
+
+```toml
+[tool.ty.terminal]
+# Fail the run if there are any warnings.
+error-on-warning = true
+```
+
+This ensures that the type checker will fail in a CI environment if it finds any potential type issues, even those it would normally classify as just a warning. You can also configure individual rule severities under `[tool.ty.rules]` for more fine-grained control.
 
 #### Why is using a mutable default argument (e.g., `def func(arg=[])`) so bad?
 This is one of the most famous "gotchas" in Python. The default argument object is created **only once**, when the function is first defined, not each time the function is called.
@@ -78,6 +83,21 @@ def add_to_list_safe(item, my_list=None):
     my_list.append(item)
     return my_list
 ```
+
+#### You said type hints are just suggestions. How are they actually enforced?
+This is a critical point. The Python interpreter itself **does not care about type hints**. It executes the code without validating them. The following code will run without a `TypeError` from Python, even though it's "wrong":
+
+```python
+def greet(name: str) -> None:
+    print(f"Hello, {name}")
+
+greet(123) # Python runs this just fine, printing "Hello, 123"
+```
+Enforcement comes from **external tools** that you run as part of your development workflow:
+1.  **Static Type Checkers (like `ty` or `mypy`):** These are the primary enforcement mechanism. You run `ty check .` as a separate step, and it analyzes your code *without running it* to find type inconsistencies. This is what we do in our CI pipeline.
+2.  **Runtime Type Checkers (like `beartype` or `pydantic`):** These are more advanced libraries that you can use as decorators. They *do* check types while your code is running and will raise errors if the types are incorrect. This adds a performance overhead but can be useful for validating data at critical boundaries, like API inputs.
+
+For this course, we focus on static checking as the standard practice.
 
 ---
 
@@ -196,35 +216,19 @@ In `test_mean_inferred`, `hypothesis` sees the `xs: list[float]` annotation and 
 
 ### Sphinx and Documentation Deep Dive
 
-#### You said type hints are just suggestions. How are they actually enforced?
-This is a critical point. The Python interpreter itself **does not care about type hints**. It executes the code without validating them. The following code will run without a `TypeError` from Python, even though it's "wrong":
-
-```python
-def greet(name: str) -> None:
-    print(f"Hello, {name}")
-
-greet(123) # Python runs this just fine, printing "Hello, 123"
-```
-Enforcement comes from **external tools** that you run as part of your development workflow:
-1.  **Static Type Checkers (like `ty` or `mypy`):** These are the primary enforcement mechanism. You run `ty .` as a separate step, and it analyzes your code *without running it* to find type inconsistencies. This is what we do in our CI pipeline.
-2.  **Runtime Type Checkers (like `beartype` or `pydantic`):** These are more advanced libraries that you can use as decorators. They *do* check types while your code is running and will raise errors if the types are incorrect. This adds a performance overhead but can be useful for validating data at critical boundaries, like API inputs.
-
-For this course, we focus on static checking as the standard practice.
-
 #### Can you explain the Sphinx workflow in more detail?
 The four-step workflow can be broken down further:
 1.  **`sphinx-quickstart`**: This is a one-time setup wizard. It creates the `docs/` directory and populates it with a `source/` subdirectory containing `conf.py` and `index.rst`. It asks you questions to generate a basic configuration.
 2.  **`conf.py`**: This is the brain of your documentation. You edit this file to:
-    -   Tell Sphinx where your Python source code is (e.g., `sys.path.insert(0, os.path.abspath('../../src'))`).
     -   Enable extensions in the `extensions = [...]` list. `autodoc` is essential for pulling in docstrings, and `napoleon` is essential for understanding NumPy-style formatting.
     -   Configure the look and feel, like the HTML theme.
 3.  **`.rst` Files**: These are the content files for your documentation website. You use special Sphinx directives within them. The most important is `.. automodule:: my_package.main\n   :members:`. This tells `autodoc` to go to that Python module, inspect all its members (functions, classes), and insert their docstrings into the webpage at that location.
-4.  **`sphinx-build`**: This is the final command. It reads `conf.py`, processes all the `.rst` files, runs `autodoc` to pull in and render the docstrings, and then uses a "builder" (like the `html` builder) to write the final output files to a build directory.
+4.  **`sphinx-build`**: This is the final command. After first installing your package (e.g., `pip install -e .`), `sphinx-build` reads `conf.py`, processes all the `.rst` files, runs `autodoc` to pull in and render the docstrings, and then uses a "builder" (like the `html` builder) to write the final output files to a build directory.
 
 #### How does Sphinx *actually* get the documentation from my code?
 Sphinx's `autodoc` extension is not just parsing text files. It performs **live introspection** of your code. Here's how it works when it sees `.. automodule:: my_package.main`:
 
-1.  **Import**: `autodoc` literally imports your module: `import my_package.main`. This is why `conf.py` needs to have the correct `sys.path` set up, so the import succeeds.
+1.  **Import**: `autodoc` literally imports your module: `import my_package.main`. This is why your package must be installed (e.g., via `pip install -e .`), so that Sphinx can find and import it.
 2.  **Inspect**: It then uses Python's built-in `inspect` module to look at the live objects inside the imported module (e.g., the `compute_mean_std` function object).
 3.  **Extract**: It accesses the special attributes of these objects, primarily `__doc__` (the docstring), but also the function signature, default values, and type annotations.
 4.  **Parse & Render**: If the `napoleon` extension is enabled, it takes the raw docstring text and parses the NumPy/Google style headers (`Parameters`, `Returns`, etc.) into the structured reST format that Sphinx understands.

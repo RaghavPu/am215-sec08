@@ -19,6 +19,8 @@ demo = ["ruff", "ty", "sphinx", "sphinx_autodoc_typehints", "sphinx-autobuild"]
 [tool.ruff]
 # Same as black.
 line-length = 88
+
+[tool.ruff.lint]
 # Enable Pyflakes (F), Pycodestyle (E, W), isort (I), and Bugbear (B) rules.
 select = ["E", "W", "F", "I", "B"]
 
@@ -26,9 +28,9 @@ select = ["E", "W", "F", "I", "B"]
 # Use double quotes for strings.
 quote-style = "double"
 
-[tool.ty]
-# Enable the strictest type checking rules.
-strict = true
+[tool.ty.terminal]
+# Fail the run if there are any warnings.
+error-on-warning = true
 
 [tool.pytest.ini_options]
 minversion = "6.0"

@@ -274,8 +274,10 @@ We'll look at two main categories:
 The Standard: PEP 8
 ===
 
-This problem is so common that the Python community created **PEP 8**, the official style guide for Python code.
+The problem of clashing code styles is so common that the Python community created **PEP 8**, the official style guide for Python code.
 
+<!-- column_layout: [1,1] -->
+<!-- column: 0 -->
 It provides conventions for:
 -   **Line length:** Max 79 characters for code, 72 for docstrings.
 -   **Indentation:** 4 spaces per indentation level.
@@ -283,6 +285,9 @@ It provides conventions for:
 -   **Whitespace:** Around operators and after commas.
 -   **Naming:** `snake_case` for functions and variables, `PascalCase` for classes.
 
+<!-- column: 1 -->
+![image:width:60%](./img/pep8.png)
+<!-- reset_layout -->
 > Following a consistent style guide is more important than any single rule. An auto-formatter makes this effortless.
 
 ---
@@ -291,6 +296,8 @@ The Historical Formatter: `black`
 ===
 
 To solve the problem of inconsistent style, the community developed opinionated auto-formatters. The most influential was `black`.
+
+![image:width:40%](./img/black.png)
 
 -   **Philosophy:** "The Uncompromising Code Formatter."
 -   **Goal:** End debates over style by providing one single, deterministic style. It is not configurable.
@@ -303,11 +310,17 @@ To solve the problem of inconsistent style, the community developed opinionated 
 The Historical Linter Ecosystem
 ===
 
-For finding bugs (linting), developers had to combine several different tools:
 
+For finding bugs (linting), developers had to combine several different tools:
+<!-- column_layout: [1,1] -->
+<!-- column: 0 -->
 -   **`flake8`:** A popular wrapper that bundled basic style checks (`pycodestyle`) and simple bug detection (`pyflakes`).
 -   **`pylint`:** A much more powerful (and often slower and "noisier") linter that performs deeper code analysis.
 -   **`isort`:** A specialized tool that did only one thing: sort import statements alphabetically and into sections.
+
+<!-- column: 1 -->
+![image:width:80%](./img/linting.png)
+<!-- reset_layout -->
 
 > **The Problem:** Managing, configuring, and running this collection of separate, slow tools was complex and a common source of friction for projects.
 
@@ -339,15 +352,6 @@ ruff check --fix .
 -   **Speed:** It is 10-100x faster than the tools it replaces.
 -   **Simplicity:** One tool to install, configure, and run.
 -   **Compatibility:** It can be configured to be a drop-in replacement for `black` and `flake8`.
-
-**Our Workflow:**
-```bash
-# 1. Format the codebase
-ruff format .
-
-# 2. Find and fix issues
-ruff check --fix .
-```
 <!-- reset_layout -->
 
 > This unified workflow is fast, simple, and makes code reviews easier because diffs are minimal and focused on logic, not style.
@@ -536,6 +540,8 @@ Reconstructing Code with `ast.unparse`
 
 The `ast.unparse()` function (available in Python 3.9+) takes a modified AST and converts it back into valid Python source code.
 
+<!-- column_layout: [1,1] -->
+<!-- column: 0 -->
 **Completing our example:**
 ```python
 # (continued from previous slide)
@@ -551,13 +557,15 @@ new_tree = transformer.visit(tree)
 # Convert the new tree back to a string
 new_code = ast.unparse(new_tree)
 print(new_code)
+**Completing our example:**
 ```
+<!-- column: 1 -->
 **Output:**
 ```python
 print('HELLO, WORLD!')
 ```
 > This completes the cycle: `code -> AST -> modified AST -> new code`. This is the foundation of tools like `ruff`, which not only find issues but can also automatically fix them.
-
+<!-- reset_layout -->
 ---
 
 The Problem: Dynamic Type Errors
@@ -616,7 +624,7 @@ A static analysis tool reads the hints and validates them. Python itself does *n
 ```bash
 # ty is a modern, fast type checker
 # mypy is another popular choice
-ty .
+ty check .
 ```
 ```text
 error: Argument 1 to "get_final_items" has incompatible type "int"; expected "list[int]"
@@ -1164,10 +1172,6 @@ select = [
 <!-- column: 1 -->
 ```toml
 # (continued from left)
-
-# Ty configuration
-[tool.ty]
-strict = true
 
 # Pytest configuration from Lec 6
 [tool.pytest.ini_options]

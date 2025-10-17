@@ -47,10 +47,10 @@ ruff format --check src/
 
 #### `ty` (Type Checker)
 
-Run `ty` to check for static type errors. It will find that the `get_user_id` function incorrectly returns a string instead of an integer.
+Run `ty check` to check for static type errors. It will find that the `get_user_id` function incorrectly returns a string instead of an integer.
 
 ```bash
-ty src/
+ty check src/
 ```
 
 #### `pytest` (Testing)
