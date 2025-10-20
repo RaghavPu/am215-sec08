@@ -1,0 +1,10 @@
+{
+    "default_dealer": {
+        "strategy": "fixed",
+        "threshold": 17
+    },
+    "default_player": {
+        "strategy": "blind",
+        "threshold": 17
+    }
+}
