@@ -1,0 +1,6 @@
+# Ignore all files in this directory.
+# The user is expected to provide their own data files here.
+*
+
+# Do not ignore this .gitignore file.
+!.gitignore
