@@ -7,17 +7,18 @@ This demo shows a reproducible pipeline:
 3) Compare time and memory
 4) (Bonus) **DuckDB**: query Parquet directly
 
-## Prereqs
-- Python 3.10+
-- `pip install -r requirements.txt`
-- `data/covid.sqlite` present with tables:
-  - `covid(date TEXT, region TEXT, subregion TEXT, cases INTEGER, ...)`
-  - `population(region TEXT, subregion TEXT, population INTEGER, ...)`
+## Setup
 
-> Dates should be ISO strings like `YYYY-MM-DD`. Ensure `(region, subregion)` pairs match across tables.
+1.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-### Minimal example to create a DB (optional sketch)
-If you don't have `covid.sqlite`, you can create it from CSV/Parquet in your own prep script. The demo assumes it already exists.
+2.  **Generate dummy data:**
+    ```bash
+    python create_dummy_data.py
+    ```
+    This script will create the `data/covid.sqlite` database and the `data/*.parquet` files required to run the main demo and the bonus script.
 
 ## Run
 ```bash

@@ -66,8 +66,8 @@ def polars_per_capita_rolling(df_pl: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
         [
             pl.col("per_capita")
-            .group_by(["region", "subregion"])
             .rolling_mean(window_size=7)
+            .over(["region", "subregion"])
             .alias("roll7_per_capita")
         ]
     )
