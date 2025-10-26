@@ -118,6 +118,18 @@ python -m pytest test_traffic_flow.py -v
 
 The GitHub Actions workflow (`.github/workflows/ci.yml`) and pytest configuration (`pytest.ini`) are already provided in this repository.
 
+### What the CI workflow does:
+- Runs automatically when you push code to your repository
+- Tests your code on multiple Python versions (3.9, 3.10, 3.11)
+- Installs dependencies and runs your test suite
+- Generates a coverage report showing which parts of your code are tested
+- Uploads the coverage report as a downloadable artifact
+
+### What pytest.ini does:
+- Configures pytest to find and run your tests automatically
+- Sets up test discovery (looks for files starting with `test_`)
+- Configures output formatting and test markers
+
 ---
 
 ## 4) Test your CI pipeline
@@ -139,3 +151,16 @@ What are the main benefits of continuous integration for mathematical modeling p
 
 ### Question 3: Test Design
 How would you test a function that involves numerical integration? What challenges might you face?
+
+---
+
+## Final Project Template
+
+This section provides a complete template for setting up professional software development practices in your final projects. You can use this same structure:
+
+- **Automated testing** with pytest and coverage reporting
+- **Continuous integration** with GitHub Actions
+- **Proper project structure** with requirements.txt and configuration files
+- **Version control** with meaningful commits and branches
+
+For your final project, consider setting up a similar CI/CD pipeline to ensure your code is reliable and well-tested. The workflow and configuration files in this section can serve as a starting point for any Python project involving mathematical modeling or data analysis.
