@@ -35,10 +35,10 @@ jobs:
     - name: Run tests
       run: |
         cd sections/sec08_am215
-        python -m pytest test/ -v --cov=traffic_flow --cov-report=html --cov-report=term
+        python -m pytest -v --cov=traffic_flow --cov-report=html --cov-report=term
     
     - name: Upload coverage reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report-${{ matrix.python-version }}
         path: sections/sec08_am215/htmlcov/
