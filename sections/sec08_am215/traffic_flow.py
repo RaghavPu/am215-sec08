@@ -69,11 +69,15 @@ def car_following_ode(t, y, ncars, d0=1, leading_car_velocity=None):
     # Initialize the derivatives
     dydt = np.zeros((2*ncars-1,), dtype=np.float32)
     
-    # TODO: Calculate acceleration for each following car based on car-following rule
+    # Calculate acceleration for each following car based on car-following rule
+    # dv_i/dt = λ((x_{i-1} - x_i) - d₀)
+    lambda_param = 0.5  # sensitivity parameter
+    spacing = position[:-1] - position[1:]  # x_{i-1} - x_i for each following car
+    acceleration = lambda_param * (spacing - d0)
     
-    # TODO: Set the derivatives
-    # dydt[:ncars] = ? (position derivatives)
-    # dydt[ncars:] = ? (velocity derivatives)
+    # Set the derivatives
+    dydt[:ncars] = speed  # position derivatives: dx_i/dt = v_i
+    dydt[ncars:] = acceleration  # velocity derivatives for following cars
 
     return dydt
 
