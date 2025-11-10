@@ -29,16 +29,15 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r sections/sec08_am215/requirements.txt
+        pip install -r requirements.txt
         pip install pytest pytest-cov
     
     - name: Run tests
       run: |
-        cd sections/sec08_am215
         python -m pytest -v --cov=traffic_flow --cov-report=html --cov-report=term
     
     - name: Upload coverage reports
       uses: actions/upload-artifact@v3
       with:
         name: coverage-report-${{ matrix.python-version }}
-        path: sections/sec08_am215/htmlcov/
+        path: htmlcov/
